@@ -5,13 +5,20 @@
 local counter = 0
 local lastTime = 0
 
+local channel = 1
+local id = 40 --idk what to put here. I don't think id matters
+local command = 0 --I think this tells it to send a normal can message. I'm still looking for better documentation
+
+
 function onTick()
     local now = getUptime()
     if now - lastTime > 0.10 then--every 100 ms
         lastTime = now
 
         counter = (counter + 1) % 256   -- keep it 0–255
+        
 
-        txCAN(0, 0x100, 0, 1, {counter})
+        txCAN(channel, id, command, {0, 1, counter})
+        
     end
 end
